@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/portfolio/static/js/main.2636be15.js",
-    "static/js/39.1b978cb2.js": "/portfolio/static/js/39.1b978cb2.js",
-    "favicon.ico": "/portfolio/favicon.ico",
-    "index.html": "/portfolio/index.html",
-    "favicon-32.png": "/portfolio/favicon-32.png",
-    "favicon-16.png": "/portfolio/favicon-16.png",
-    "manifest.json": "/portfolio/manifest.json",
-    "serve.json": "/portfolio/serve.json",
-    ".expo/settings.json": "/portfolio/.expo/settings.json",
-    ".expo/packager-info.json": "/portfolio/.expo/packager-info.json",
-    "main.2636be15.js.map": "/portfolio/static/js/main.2636be15.js.map",
-    "39.1b978cb2.js.map": "/portfolio/static/js/39.1b978cb2.js.map"
+    "main.js": "/gh-pages/static/js/main.2636be15.js",
+    "static/js/39.1b978cb2.js": "/gh-pages/static/js/39.1b978cb2.js",
+    "favicon.ico": "/gh-pages/favicon.ico",
+    "index.html": "/gh-pages/index.html",
+    "favicon-32.png": "/gh-pages/favicon-32.png",
+    "favicon-16.png": "/gh-pages/favicon-16.png",
+    "manifest.json": "/gh-pages/manifest.json",
+    "serve.json": "/gh-pages/serve.json",
+    ".expo/settings.json": "/gh-pages/.expo/settings.json",
+    ".expo/packager-info.json": "/gh-pages/.expo/packager-info.json",
+    "main.2636be15.js.map": "/gh-pages/static/js/main.2636be15.js.map",
+    "39.1b978cb2.js.map": "/gh-pages/static/js/39.1b978cb2.js.map"
   },
   "entrypoints": [
     "static/js/39.1b978cb2.js",
