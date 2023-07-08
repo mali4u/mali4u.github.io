@@ -23,7 +23,5 @@
     "@babel/core": "^7.20.0",
     "gh-pages": "^5.0.0"
   },
-  "private": true,
-  "homepage": "http://mali4u.github.io/mali4u.github.io"
-
+  "private": true
 }
