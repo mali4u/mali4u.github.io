@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/gh-pages/static/js/main.2636be15.js",
-    "static/js/39.1b978cb2.js": "/gh-pages/static/js/39.1b978cb2.js",
-    "favicon.ico": "/gh-pages/favicon.ico",
-    "index.html": "/gh-pages/index.html",
-    "favicon-32.png": "/gh-pages/favicon-32.png",
-    "favicon-16.png": "/gh-pages/favicon-16.png",
-    "manifest.json": "/gh-pages/manifest.json",
-    "serve.json": "/gh-pages/serve.json",
-    ".expo/settings.json": "/gh-pages/.expo/settings.json",
-    ".expo/packager-info.json": "/gh-pages/.expo/packager-info.json",
-    "main.2636be15.js.map": "/gh-pages/static/js/main.2636be15.js.map",
-    "39.1b978cb2.js.map": "/gh-pages/static/js/39.1b978cb2.js.map"
+    "main.js": "/mali4u.github.io/static/js/main.2636be15.js",
+    "static/js/39.1b978cb2.js": "/mali4u.github.io/static/js/39.1b978cb2.js",
+    "favicon.ico": "/mali4u.github.io/favicon.ico",
+    "index.html": "/mali4u.github.io/index.html",
+    "favicon-32.png": "/mali4u.github.io/favicon-32.png",
+    "favicon-16.png": "/mali4u.github.io/favicon-16.png",
+    "manifest.json": "/mali4u.github.io/manifest.json",
+    "serve.json": "/mali4u.github.io/serve.json",
+    ".expo/settings.json": "/mali4u.github.io/.expo/settings.json",
+    ".expo/packager-info.json": "/mali4u.github.io/.expo/packager-info.json",
+    "main.2636be15.js.map": "/mali4u.github.io/static/js/main.2636be15.js.map",
+    "39.1b978cb2.js.map": "/mali4u.github.io/static/js/39.1b978cb2.js.map"
   },
   "entrypoints": [
     "static/js/39.1b978cb2.js",
