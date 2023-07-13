@@ -7,7 +7,7 @@ import { Nunito_600SemiBold} from '@expo-google-fonts/nunito';
 import { Poppins_400Regular, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
 import { useFonts } from 'expo-font/build/FontHooks';
 
-import NavBar from './components/NavBar';
+import NavBar from './NavBar';
 
 export default function App() {
   const [fontsLoaded] = useFonts({

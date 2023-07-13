@@ -1,5 +1,5 @@
 import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
-import externalStyle from '../style/externalStyle';
+import externalStyle from './style/externalStyle';
 
 
 const NavBar = () => {
