@@ -40,6 +40,10 @@ const externalStyle = StyleSheet.create({
         fontSize:16,
         fontFamily: 'Nunito_600SemiBold'
     },
+    H5:{
+        fontSize:13,
+        fontFamily: 'Nunito_600SemiBold'
+    },
     P:{
         fontSize:16,
         fontFamily: 'Poppins_400Regular'
