@@ -3,7 +3,7 @@ import externalStyle from '../style/externalStyle';
 import * as Svg from 'react-native-svg'
 
 
-const NavBar = () => {
+const NavBar = ({navigation, scrollView}) => {
     const navBarStyle = useStyles();
     const textStyle = useTextStyles()
     {/*const {logo, dropDownArrow} = getImages()*/}
@@ -40,6 +40,18 @@ function getImages(){
     )
 }
 
+function getScrollStyle(){
+    const {width, height} = useWindowDimensions();
+    return StyleSheet.create({
+        colorNavContainer:{
+
+        },
+        colorMenuItem:{
+
+        }
+    })
+}
+
 function useTextStyles(){
     const {width, height} = useWindowDimensions();
     return(
@@ -64,9 +76,7 @@ function useStyles(){
             justifyContent: 'space-between'
         },
         menuItem:{
-            
-            justifyContent: 'center',
-            
+            justifyContent: 'center'
         },
         logo:{
             width: (width > 710) ? 62.5 : 35.55,
