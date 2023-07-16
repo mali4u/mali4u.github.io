@@ -14,6 +14,8 @@ const HomePage = ({navigation}) => {
     )
 }
 
+export default HomePage;
+
 function createScrollView(){
     return(
         <ScrollView>
