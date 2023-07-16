@@ -2,12 +2,15 @@ import React, {useCallback} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import externalStyle from './style/externalStyle';
 import * as SplashScreen from 'expo-splash-screen';
+import {NavigationContainer } from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import Homepage from './pages/Homepage'
 
 import { Nunito_600SemiBold} from '@expo-google-fonts/nunito';
 import { Poppins_400Regular, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
 import { useFonts } from 'expo-font/build/FontHooks';
 
-import NavBar from './components/NavBar';
+const Stack = createStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,11 +33,9 @@ export default function App() {
 
   return (
     
-    <View style={styles.container}>
-      <NavBar/>
-      <Text style={[externalStyle.H2, externalStyle.purple]}>Open up App.js to start working on your app!</Text>
-      <Text style={externalStyle.P}>Hello! here is my app!</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Screen name='Home' component={Homepage}/>
+    </NavigationContainer>
   );
 }
 

@@ -1,0 +1,31 @@
+import {StyleSheet, Text, TouchableOpacity, View, Image, ScrollView, useWindowDimensions} from 'react-native';
+import externalStyle from '../style/externalStyle';
+import NavBar from '../components/NavBar'
+
+const HomePage = ({navigation}) => {
+    const homeStyles = useStyles();
+    const scrollView = createScrollView();
+
+    return(
+        <View>
+            <NavBar navigation={navigation} scrollView={scrollView}/>
+            {scrollView}
+        </View>
+    )
+}
+
+function createScrollView(){
+    return(
+        <ScrollView>
+
+        </ScrollView>
+    )
+}
+
+function useStyles(){
+    const {width, height} = useWindowDimensions();
+
+    return StyleSheet.create({
+
+    })
+}
