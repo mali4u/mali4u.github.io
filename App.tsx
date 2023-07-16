@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React, {useCallback} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import externalStyle from './style/externalStyle';
@@ -32,9 +33,10 @@ export default function App() {
   
 
   return (
-    
     <NavigationContainer>
-      <Stack.Screen name='Home' component={Homepage}/>
+      <Stack.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
+        <Stack.Screen name='Home' component={Homepage}/>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
