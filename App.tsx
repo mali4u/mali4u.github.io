@@ -5,7 +5,8 @@ import externalStyle from './style/externalStyle';
 import * as SplashScreen from 'expo-splash-screen';
 import {NavigationContainer } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import Homepage from './pages/Homepage'
+import Homepage from './pages/Homepage';
+import TestProjectPage from './pages/TestProjectPage'
 
 import { Nunito_600SemiBold} from '@expo-google-fonts/nunito';
 import { Poppins_400Regular, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
@@ -36,6 +37,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Home' screenOptions={{headerShown: false}}>
         <Stack.Screen name='Home' component={Homepage}/>
+        <Stack.Screen name='TestProject' component={TestProjectPage}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

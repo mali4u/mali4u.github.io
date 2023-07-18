@@ -3,29 +3,30 @@ import externalStyle from '../style/externalStyle';
 import * as Svg from 'react-native-svg'
 
 
-const NavBar = ({navigation, scrollView}) => {
+const NavBar = ({isHome, navigateHome,  scrollHome, scrollAbout, scrollContact, projects}) => {
     const navBarStyle = useStyles();
     const textStyle = useTextStyles()
-    {/*const {logo, dropDownArrow} = getImages()*/}
+    {/*const {logo, dropDownArrow} = getImages()*/}   
 
     return(
         <View style={navBarStyle.navContainer}>
             <View style={navBarStyle.menuItemContainer}>
-                <TouchableOpacity style={navBarStyle.menuItem}>
+                <TouchableOpacity style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollHome : navigateHome}>
                     <Image style={navBarStyle.logo} source={require('../assets/Logo-green.png')}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={navBarStyle.menuItem}>
+                <TouchableOpacity style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollAbout : navigateHome + scrollAbout}>
                     <Text style={textStyle}>About me</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={navBarStyle.menuItem}>
+                <TouchableOpacity style={navBarStyle.menuItem} >
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Text style={textStyle}>Projects</Text>
                         <Image style={navBarStyle.dropdownArrow} source={require('../assets/dropDownArrow.png')}/>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={navBarStyle.menuItem}>
+                <TouchableOpacity style={navBarStyle.menuItem} onPress={(isHome != true) ? scrollContact : navigateHome + scrollContact}>
                     <Text style={textStyle}>Contact</Text>
                 </TouchableOpacity>
+                
             </View>
         </View>
     )
@@ -33,6 +34,7 @@ const NavBar = ({navigation, scrollView}) => {
 
 export default NavBar;
 
+//Get logo in right size
 function getImages(){
     const {width, height} = useWindowDimensions();
     return(
@@ -40,6 +42,7 @@ function getImages(){
     )
 }
 
+//Get color depending on section
 function getScrollStyle(){
     const {width, height} = useWindowDimensions();
     return StyleSheet.create({
@@ -52,6 +55,7 @@ function getScrollStyle(){
     })
 }
 
+//Get right text size
 function useTextStyles(){
     const {width, height} = useWindowDimensions();
     return(
@@ -59,6 +63,7 @@ function useTextStyles(){
     )
 }
 
+//Get styles
 function useStyles(){
     const {width, height} = useWindowDimensions();
 
