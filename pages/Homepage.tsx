@@ -24,9 +24,9 @@ const HomePage = ({navigation}) => {
         <View>
             <NavBar isHome={true} 
             navigateHome={() => navigation.navigate('Home')} 
-            scrollHome={() => scrollViewRef.current.scrollTo({y: 0})} 
-            scrollAbout={() => About.current.measure((width, height, px, py, fx, fy) => {scrollViewRef.current.scrollTo({x: 0, y: fy - 70, animated: true});})}
-            scrollContact={() => Contact.current.measure((width, height, px, py, fx, fy) => {scrollViewRef.current.scrollTo({x: 0, y: fy - 70, animated: true});})}
+            scrollHome={() => scrollViewRef.current.scrollTo({x:0, y: 0, animated:true})} 
+            scrollAbout={() => About.current.measure((width, height, px, py, fx, fy) => {scrollViewRef.current.scrollTo({x:0, y: fy - 70, animated: true});})}
+            scrollContact={() => Contact.current.measure((width, height, px, py, fx, fy) => {scrollViewRef.current.scrollTo({x:0, y: fy - 70, animated: true});})}
             projects={[['TestProject', () => navigation.navigate()]]}/>
                <View style={scrollViewStyles.container}>
                     <ScrollView ref={scrollViewRef}>
@@ -86,7 +86,8 @@ function useStyles(){
 
         },
         container:{
-
+            height: height,
+            width: width
         }
     })
 }

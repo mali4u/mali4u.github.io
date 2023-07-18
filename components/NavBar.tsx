@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View, Image, Dimensions, useWindowDimensions} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Image, Dimensions, useWindowDimensions, Pressable} from 'react-native';
 import externalStyle from '../style/externalStyle';
 import * as Svg from 'react-native-svg'
 
@@ -11,21 +11,21 @@ const NavBar = ({isHome, navigateHome,  scrollHome, scrollAbout, scrollContact, 
     return(
         <View style={navBarStyle.navContainer}>
             <View style={navBarStyle.menuItemContainer}>
-                <TouchableOpacity style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollHome : navigateHome}>
+                <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollHome : navigateHome}>
                     <Image style={navBarStyle.logo} source={require('../assets/Logo-green.png')}/>
-                </TouchableOpacity>
-                <TouchableOpacity style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollAbout : navigateHome + scrollAbout}>
+                </Pressable>
+                <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollAbout : navigateHome + scrollAbout}>
                     <Text style={textStyle}>About me</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={navBarStyle.menuItem} >
+                </Pressable>
+                <Pressable style={navBarStyle.menuItem} >
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Text style={textStyle}>Projects</Text>
                         <Image style={navBarStyle.dropdownArrow} source={require('../assets/dropDownArrow.png')}/>
                     </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={navBarStyle.menuItem} onPress={(isHome != true) ? scrollContact : navigateHome + scrollContact}>
+                </Pressable>
+                <Pressable style={navBarStyle.menuItem} onPress={(isHome != true) ? scrollContact : navigateHome + scrollContact}>
                     <Text style={textStyle}>Contact</Text>
-                </TouchableOpacity>
+                </Pressable>
                 
             </View>
         </View>

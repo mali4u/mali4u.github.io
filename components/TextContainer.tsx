@@ -5,13 +5,20 @@ import externalStyle from '../style/externalStyle';
 
 const TextContainer = ({title, text, menu}) => {
     const containerStyle = useStyles();
-    
+    const scrollViewRef = useRef<ScrollView>();
 
     return(
-        <View style={containerStyle.container}>
-            <Text style={useTextStylesTitle()}>{title}</Text>
-            {(menu == null) ? null : createTextContainerMenu(menu)}
-            <Text style={[externalStyle.P, containerStyle.textBox]}>{text}</Text>
+        <View>
+            <View style={containerStyle.container}>
+                <Text style={useTextStylesTitle()}>{title}</Text>
+                {(menu == null) ? null : createTextContainerMenu(menu)}
+                <ScrollView ref={scrollViewRef}>
+                    <Text style={[externalStyle.P, containerStyle.textBox]}>{text}</Text>
+                </ScrollView>
+            </View>
+            <View>
+                {/*Frame object + image goes here*/}
+            </View>
         </View>
     )
 }
@@ -23,9 +30,9 @@ function createTextContainerMenu(menu){
     return(
         <View style={containerStyle.menu}>
             {menu.map((item, key) => ( 
-                <Pressable style={containerStyle.menuItem}>
+                <Pressable key={key} style={containerStyle.menuItem}>
                     <Text style={[useTextStylesMenu(), externalStyle.grey]}>{'\u2022'}</Text>
-                    <Text key={key} style={[useTextStylesMenu(), containerStyle.menuItemText, externalStyle.grey]}>{ item }</Text>
+                    <Text style={[useTextStylesMenu(), containerStyle.menuItemText, externalStyle.grey]}>{ item }</Text>
                 </Pressable>
             ))}
         </View>
