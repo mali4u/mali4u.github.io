@@ -33,14 +33,18 @@ const externalStyle = StyleSheet.create({
         fontFamily: 'Poppins_600SemiBold'
     },
     H3:{
+        fontSize: 26,
+        fontFamily: 'Poppins_600SemiBold'
+    },
+    H4:{
         fontSize:20,
         fontFamily: 'Nunito_600SemiBold'
     },
-    H4:{
+    H5:{
         fontSize:16,
         fontFamily: 'Nunito_600SemiBold'
     },
-    H5:{
+    H6:{
         fontSize:13,
         fontFamily: 'Nunito_600SemiBold'
     },

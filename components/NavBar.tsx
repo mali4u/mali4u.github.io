@@ -59,7 +59,7 @@ function getScrollStyle(){
 function useTextStyles(){
     const {width, height} = useWindowDimensions();
     return(
-        (width > 710) ? externalStyle.H3 : externalStyle.H5
+        (width > 710) ? externalStyle.H4 : externalStyle.H6
     )
 }
 
