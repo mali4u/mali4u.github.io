@@ -23,7 +23,7 @@ const NavBar = ({isHome, navigateHome,  scrollHome, scrollAbout, scrollContact, 
                         <Image style={navBarStyle.dropdownArrow} source={require('../assets/dropDownArrow.png')}/>
                     </View>
                 </Pressable>
-                <Pressable style={navBarStyle.menuItem} onPress={(isHome != true) ? scrollContact : navigateHome + scrollContact}>
+                <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollContact : navigateHome + scrollContact}>
                     <Text style={textStyle}>Contact</Text>
                 </Pressable>
                 
