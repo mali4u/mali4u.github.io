@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TouchableOpacity, View, Image, ScrollView, useWindowDimensions, SafeAreaView, Platform, FlatList} from 'react-native';
+import {StyleSheet, Text, View, Image, ScrollView, useWindowDimensions, Animated} from 'react-native';
 import React, {useState, useEffect, useRef, Component, useCallback} from 'react';
 import externalStyle from '../style/externalStyle';
 import NavBar from '../components/NavBar';
@@ -12,17 +12,23 @@ import { _ScrollView } from 'react-native';
 const HomePage = ({navigation}) => {   
     const scrollViewStyles = useStyles()
 
+    //Save positions of views in scrollview
     const [dataSourceCords, setDataSourceCords] = useState([] as number[]);
     const [scrollToIndex, setScrollToIndex] = useState(0);
     const [ref, setRef] = useState<ScrollView>();
     
+    //Scroll to view position saved in dataSource
     const scrollHandler = (key: number) => {
         if(dataSourceCords.length > scrollToIndex) {ref?.scrollTo({x:0, y: dataSourceCords[key], animated: true})}
     }
 
+    //Animated header on scroll
+    let scrollYOffset = useRef(new Animated.Value(0)).current;
+
     return(
         <View>
             <NavBar isHome={true} 
+            animationValue = {scrollYOffset}
             navigateHome={() => navigation.navigate('Home')} 
             scrollHome={() => ref.scrollTo({x:0, y: 0, animated:true})} 
             scrollAbout={() => scrollHandler(1)}
@@ -30,7 +36,7 @@ const HomePage = ({navigation}) => {
             scrollProjects={() => scrollHandler(2)}
             projects={[['TestProject', () => navigation.navigate('TestProject')]]}/>
                <View style={scrollViewStyles.container}>
-                    <ScrollView ref={ref => {setRef(ref as any);}}>
+                    <ScrollView ref={ref => {setRef(ref as any);}} scrollEventThrottle={16} onScroll={Animated.event([{nativeEvent: { contentOffset: { y: scrollYOffset}}}], {useNativeDriver: false})}>
                         <View key={1} onLayout={event => {const layout = event.nativeEvent.layout; dataSourceCords[1] = layout.y}}>
                             <AboutMeSection/>
                         </View>
@@ -59,7 +65,7 @@ function useStyles(){
 
         },
         container:{
-            height: height,
+            height: (width > 710) ? height - 101 : height - 62,
             width: width
         }
     })

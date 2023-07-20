@@ -1,18 +1,51 @@
-import {StyleSheet, Text, TouchableOpacity, View, Image, Dimensions, useWindowDimensions, Pressable} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Image, Dimensions, useWindowDimensions, Pressable, Animated} from 'react-native';
 import externalStyle from '../style/externalStyle';
 import * as Svg from 'react-native-svg'
 
 
-const NavBar = ({isHome, navigateHome,  scrollHome, scrollAbout, scrollContact, scrollProjects, projects}) => {
+
+const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout, scrollContact, scrollProjects, projects}) => {
     const navBarStyle = useStyles();
-    const textStyle = useTextStyles()
+    const textStyle = useTextStyles();
+    const {width, height} = useWindowDimensions();
     {/*const {logo, dropDownArrow} = getImages()*/}   
+
+    //Logga animation
+    const Logo_Max_Height = 63;
+    const Logo_Min_Height = 45.57;
+    const scroll_distance= Logo_Max_Height - Logo_Min_Height;
+
+    const Logo_Max_Width = 62.5;
+    const Logo_Min_Width = 45;
+
+    const Menu_Max_Maxwidth = 710;
+    const Menu_Min_Maxwidth = 468;
+
+    const animatedLogoHeight = animationValue.interpolate({
+        inputRange: [0, scroll_distance],
+        outputRange: [Logo_Max_Height, Logo_Min_Height],
+        extrapolate: 'clamp'
+    })
+
+    const animatedLogoWidth = animationValue.interpolate({
+        inputRange: [0, scroll_distance],
+        outputRange: [Logo_Max_Width, Logo_Min_Width],
+        extrapolate: 'clamp'
+    })
+
+    const animatedMenuWidth = animationValue.interpolate({
+        inputRange: [0, scroll_distance],
+        outputRange: [Menu_Max_Maxwidth, Menu_Min_Maxwidth],
+        extrapolate: 'clamp'
+    })
+
+
 
     return(
         <View style={navBarStyle.navContainer}>
-            <View style={navBarStyle.menuItemContainer}>
+            <Animated.View style={navBarStyle.menuItemContainer}>
                 <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollHome : navigateHome}>
-                    <Image style={navBarStyle.logo} source={require('../assets/Logo-green.png')}/>
+                    <Animated.Image style={{height: (width > 710) ? animatedLogoHeight : navBarStyle.logo, width: (width > 710) ? animatedLogoWidth : navBarStyle.logo}} source={require('../assets/Logo-green.png')}/>
                 </Pressable>
                 <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollAbout : navigateHome + scrollAbout}>
                     <Text style={textStyle}>About me</Text>
@@ -27,7 +60,7 @@ const NavBar = ({isHome, navigateHome,  scrollHome, scrollAbout, scrollContact, 
                     <Text style={textStyle}>Contact</Text>
                 </Pressable>
                 
-            </View>
+            </Animated.View>
         </View>
     )
 }
@@ -71,7 +104,7 @@ function useStyles(){
         navContainer:{
             width: "100%",
             backgroundColor: 'blue',
-            justifyContent: 'center'
+            justifyContent: 'center',
         },
         menuItemContainer:{
             flexDirection: 'row',
