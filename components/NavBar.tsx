@@ -3,7 +3,7 @@ import externalStyle from '../style/externalStyle';
 import * as Svg from 'react-native-svg'
 
 
-const NavBar = ({isHome, navigateHome,  scrollHome, scrollAbout, scrollContact, projects}) => {
+const NavBar = ({isHome, navigateHome,  scrollHome, scrollAbout, scrollContact, scrollProjects, projects}) => {
     const navBarStyle = useStyles();
     const textStyle = useTextStyles()
     {/*const {logo, dropDownArrow} = getImages()*/}   

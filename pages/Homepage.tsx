@@ -6,17 +6,11 @@ import AboutMeSection from '../components/AboutMeSection';
 import ProjectSection from '../components/ProjectSection';
 import ContactSection from '../components/ContactSection';
 import { _ScrollView } from 'react-native';
-//import { FlatList } from 'react-native-gesture-handler';
 
 
 
 const HomePage = ({navigation}) => {   
-    //const scrollView = createScrollView();
     const scrollViewStyles = useStyles()
-    //const scrollViewRef = useRef<ScrollView>();
-    const About = useRef<View>();
-    const Projects = useRef<View>();
-    const Contact = useRef<View>();
 
     const [dataSourceCords, setDataSourceCords] = useState([] as number[]);
     const [scrollToIndex, setScrollToIndex] = useState(0);
@@ -33,16 +27,17 @@ const HomePage = ({navigation}) => {
             scrollHome={() => ref.scrollTo({x:0, y: 0, animated:true})} 
             scrollAbout={() => scrollHandler(1)}
             scrollContact={() => scrollHandler(3)}
-            projects={[['TestProject', () => navigation.navigate()]]}/>
+            scrollProjects={() => scrollHandler(2)}
+            projects={[['TestProject', () => navigation.navigate('TestProject')]]}/>
                <View style={scrollViewStyles.container}>
                     <ScrollView ref={ref => {setRef(ref as any);}}>
-                        <View ref={About} key={1} onLayout={event => {const layout = event.nativeEvent.layout; dataSourceCords[1] = layout.y}}>
+                        <View key={1} onLayout={event => {const layout = event.nativeEvent.layout; dataSourceCords[1] = layout.y}}>
                             <AboutMeSection/>
                         </View>
-                        <View ref={Projects} key={2} onLayout={event => {const layout = event.nativeEvent.layout; dataSourceCords[2] = layout.y}}>
+                        <View key={2} onLayout={event => {const layout = event.nativeEvent.layout; dataSourceCords[2] = layout.y}}>
                             <ProjectSection/>
                         </View>
-                        <View ref={Contact} key={3} onLayout={event => {const layout = event.nativeEvent.layout; dataSourceCords[3] = layout.y}}>
+                        <View key={3} onLayout={event => {const layout = event.nativeEvent.layout; dataSourceCords[3] = layout.y}}>
                             <ContactSection/>
                         </View>
                     </ScrollView>
