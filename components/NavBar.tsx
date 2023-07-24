@@ -1,6 +1,7 @@
 import {StyleSheet, Text, TouchableOpacity, View, Image, Dimensions, useWindowDimensions, Pressable, Animated} from 'react-native';
 import externalStyle from '../style/externalStyle';
 import * as Svg from 'react-native-svg'
+import LogoGreen from '../assets/LogoGreen';
 
 
 
@@ -18,8 +19,8 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
     const Logo_Max_Width = 62.5;
     const Logo_Min_Width = 45;
 
-    const Menu_Max_Maxwidth = 710;
-    const Menu_Min_Maxwidth = 468;
+    const Menu_Max_Maxwidth = 667;
+    const Menu_Min_Maxwidth = 550;
 
     const animatedLogoHeight = animationValue.interpolate({
         inputRange: [0, scroll_distance],
@@ -43,9 +44,11 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
 
     return(
         <View style={navBarStyle.navContainer}>
-            <Animated.View style={navBarStyle.menuItemContainer}>
+            <Animated.View style={[navBarStyle.menuItemContainer, {maxWidth: (width > 710) ? animatedMenuWidth : 420}]}>
                 <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollHome : navigateHome}>
-                    <Animated.Image style={{height: (width > 710) ? animatedLogoHeight : navBarStyle.logo, width: (width > 710) ? animatedLogoWidth : navBarStyle.logo}} source={require('../assets/Logo-green.png')}/>
+                    <Animated.View style={{height: (width > 710) ? animatedLogoHeight : navBarStyle.logo, width: (width > 710) ? animatedLogoWidth : navBarStyle.logo}} >
+                        <LogoGreen/>
+                    </Animated.View>
                 </Pressable>
                 <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollAbout : navigateHome + scrollAbout}>
                     <Text style={textStyle}>About me</Text>
@@ -108,7 +111,6 @@ function useStyles(){
         },
         menuItemContainer:{
             flexDirection: 'row',
-            maxWidth:(width > 710) ? 710 : 420,
             paddingVertical: (width > 710) ? 19 : 13,
             paddingHorizontal: (width > 710) ? 61 : 20,
             justifyContent: 'space-between'
