@@ -12,7 +12,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
     const {width, height} = useWindowDimensions();
     {/*const {logo, dropDownArrow} = getImages()*/}   
 
-    //Logga animation
+    //Loggo size animation
     const Logo_Max_Height = 63;
     const Logo_Min_Height = 45.57;
     const scroll_distance= Logo_Max_Height - Logo_Min_Height;
@@ -22,32 +22,6 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
 
     const Menu_Max_Maxwidth = 667;
     const Menu_Min_Maxwidth = 550;
-
-    /*const AnimatedLogo = Animated.createAnimatedComponent(LogoGreen);
-
-    const animatedLogoColorML = animationValue.interpolate({
-        inputRange: [0, scroll_distance],
-        outputRange: ["rgb(254,254,254)", "rgb(32,33,44)"],
-        extrapolate: 'clamp'
-    })
-
-    const animatedLogoColorBulb = animationValue.interpolate({
-        inputRange: [0, scroll_distance],
-        outputRange: ["rgb(173,252,146)", "rgb(251,139,36)"],
-        extrapolate: 'clamp'
-    })*/
-
-    /*const animatedLogoOpacity = animationValue.interpolate({
-        inputRange: [0, scroll_distance],
-        outputRange: [0, 1],
-        extrapolate: 'clamp'
-    })
-
-    const animatedLogoOpacityReverse = animationValue.interpolate({
-        inputRange: [0, scroll_distance],
-        outputRange: [1, 0],
-        extrapolate: 'clamp'
-    })*/
 
 
     const animatedLogoHeight = animationValue.interpolate({
