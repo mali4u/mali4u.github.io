@@ -51,9 +51,15 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
         extrapolate: 'clamp'
     })
 
+    const animatedMenuColor = animationValue.interpolate({
+        inputRange: [0, scroll_distance],
+        outputRange: ["rgb(49,36,99)", "rgb(248,248,248)"],
+        extrapolate: 'clamp'
+    })
+
 
     return(
-        <View style={navBarStyle.navContainer}>
+        <Animated.View style={[navBarStyle.navContainer, {backgroundColor:animatedMenuColor}]}>
             <Animated.View style={[navBarStyle.menuItemContainer, {maxWidth: (width > 710) ? animatedMenuWidth : 420}]}>
                 <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollHome : navigateHome}>
                     <Animated.View style={{height: (width > 710) ? animatedLogoHeight : 35.55, width: (width > 710) ? animatedLogoWidth : 36}} >
@@ -78,7 +84,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                 </Pressable>
                 
             </Animated.View>
-        </View>
+        </Animated.View>
     )
 }
 
@@ -113,7 +119,6 @@ function useStyles(){
     return StyleSheet.create({
         navContainer:{
             width: "100%",
-            backgroundColor: 'blue',
             justifyContent: 'center',
         },
         menuItemContainer:{
