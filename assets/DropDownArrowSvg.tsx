@@ -19,8 +19,8 @@ const DropDownArrowSvg = ({animationValue, myScrollDistance}) => {
 
     return(
         <Svg
-            width={14}
-            height={8}
+            width={'100%'}
+            height={'100%'}
             viewBox="0 0 14 8"
             fill="none"
         >
