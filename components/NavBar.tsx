@@ -2,6 +2,7 @@ import {StyleSheet, Text, TouchableOpacity, View, Image, Dimensions, useWindowDi
 import externalStyle from '../style/externalStyle';
 import * as Svg from 'react-native-svg'
 import LogoGreen from '../assets/LogoGreen';
+import { useRef } from 'react';
 
 
 
@@ -21,6 +22,33 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
 
     const Menu_Max_Maxwidth = 667;
     const Menu_Min_Maxwidth = 550;
+
+    /*const AnimatedLogo = Animated.createAnimatedComponent(LogoGreen);
+
+    const animatedLogoColorML = animationValue.interpolate({
+        inputRange: [0, scroll_distance],
+        outputRange: ["rgb(254,254,254)", "rgb(32,33,44)"],
+        extrapolate: 'clamp'
+    })
+
+    const animatedLogoColorBulb = animationValue.interpolate({
+        inputRange: [0, scroll_distance],
+        outputRange: ["rgb(173,252,146)", "rgb(251,139,36)"],
+        extrapolate: 'clamp'
+    })*/
+
+    /*const animatedLogoOpacity = animationValue.interpolate({
+        inputRange: [0, scroll_distance],
+        outputRange: [0, 1],
+        extrapolate: 'clamp'
+    })
+
+    const animatedLogoOpacityReverse = animationValue.interpolate({
+        inputRange: [0, scroll_distance],
+        outputRange: [1, 0],
+        extrapolate: 'clamp'
+    })*/
+
 
     const animatedLogoHeight = animationValue.interpolate({
         inputRange: [0, scroll_distance],
@@ -46,8 +74,10 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
         <View style={navBarStyle.navContainer}>
             <Animated.View style={[navBarStyle.menuItemContainer, {maxWidth: (width > 710) ? animatedMenuWidth : 420}]}>
                 <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollHome : navigateHome}>
-                    <Animated.View style={{height: (width > 710) ? animatedLogoHeight : navBarStyle.logo, width: (width > 710) ? animatedLogoWidth : navBarStyle.logo}} >
-                        <LogoGreen/>
+                    <Animated.View style={{height: (width > 710) ? animatedLogoHeight : 35.55, width: (width > 710) ? animatedLogoWidth : 36}} >
+                        <View>
+                            <LogoGreen animationValue={animationValue} myScrollDistance={scroll_distance}/>
+                        </View>
                     </Animated.View>
                 </Pressable>
                 <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollAbout : navigateHome + scrollAbout}>
@@ -117,10 +147,6 @@ function useStyles(){
         },
         menuItem:{
             justifyContent: 'center'
-        },
-        logo:{
-            width: (width > 710) ? 62.5 : 35.55,
-            height: (width > 710) ? 63 : 36,
         },
         dropdownArrow:{
             width: (width > 710) ? 14 : 12,
