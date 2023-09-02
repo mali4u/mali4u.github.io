@@ -3,6 +3,7 @@ import externalStyle from '../style/externalStyle';
 import * as Svg from 'react-native-svg'
 import LogoGreen from '../assets/LogoGreen';
 import { useRef } from 'react';
+import DropDownArrowSvg from '../assets/DropDownArrowSvg';
 
 
 
@@ -42,6 +43,13 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
         extrapolate: 'clamp'
     })
 
+    const AnimatedText = Animated.createAnimatedComponent(Text);
+
+    const animatedTextColor = animationValue.interpolate({
+        inputRange: [0, scroll_distance],
+        outputRange: ["rgb(248,248,248)", "rgb(47,49,66)"],
+        extrapolate: 'clamp'
+    })
 
 
     return(
@@ -55,16 +63,18 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                     </Animated.View>
                 </Pressable>
                 <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollAbout : navigateHome + scrollAbout}>
-                    <Text style={textStyle}>About me</Text>
+                    <AnimatedText style={[textStyle, {color: animatedTextColor}]}>About me</AnimatedText>
                 </Pressable>
                 <Pressable style={navBarStyle.menuItem} >
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <Text style={textStyle}>Projects</Text>
-                        <Image style={navBarStyle.dropdownArrow} source={require('../assets/dropDownArrow.png')}/>
+                        <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Projects</AnimatedText>
+                        <View style={navBarStyle.dropdownArrow}>
+                            <DropDownArrowSvg animationValue={animationValue} myScrollDistance={scroll_distance}/>
+                        </View>
                     </View>
                 </Pressable>
                 <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollContact : navigateHome + scrollContact}>
-                    <Text style={textStyle}>Contact</Text>
+                    <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Contact</AnimatedText>
                 </Pressable>
                 
             </Animated.View>
@@ -74,13 +84,6 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
 
 export default NavBar;
 
-//Get logo in right size
-function getImages(){
-    const {width, height} = useWindowDimensions();
-    return(
-        {/*(width > 710) ? require('../assets/Logo-green.png') : require('')*/}
-    )
-}
 
 //Get color depending on section
 function getScrollStyle(){
