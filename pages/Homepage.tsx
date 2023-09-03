@@ -44,7 +44,7 @@ const HomePage = ({navigation}) => {
                 projects={[['TestProject', () => navigation.navigate('TestProject')]]}/>
             </View>
                <Animated.View style={[scrollViewStyles.container, {marginTop: animatedTopMargin}]}>
-                    <ScrollView ref={ref => {setRef(ref as any);}} scrollEventThrottle={16} onScroll={Animated.event([{nativeEvent: { contentOffset: { y: scrollYOffset}}}], {useNativeDriver: false})}>
+                    <ScrollView showsVerticalScrollIndicator={false} ref={ref => {setRef(ref as any);}} scrollEventThrottle={16} onScroll={Animated.event([{nativeEvent: { contentOffset: { y: scrollYOffset}}}], {useNativeDriver: false})}>
                         <View key={1} onLayout={event => {const layout = event.nativeEvent.layout; dataSourceCords[1] = layout.y}}>
                             <AboutMeSection/>
                         </View>
@@ -73,8 +73,9 @@ function useStyles(){
 
         },
         container:{
-            height: (width > 710) ? height /*- 101*/ : height /*- 62*/,
-            width: width
+            height: height,
+            width: width,
+            backgroundColor: "rgb(248,248,248)"
         }
     })
 }

@@ -4,14 +4,17 @@ import * as Svg from 'react-native-svg'
 import LogoGreen from '../assets/LogoGreen';
 import { useRef } from 'react';
 import DropDownArrowSvg from '../assets/DropDownArrowSvg';
+import { LinearGradient } from 'expo-linear-gradient';
+import Gradient from 'react-native-css-gradient';
+import {interpolate} from 'flubber';
+import { Extrapolate, useAnimatedProps, useSharedValue } from 'react-native-reanimated';
 
 
 
 const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout, scrollContact, scrollProjects, projects}) => {
     const navBarStyle = useStyles();
     const textStyle = useTextStyles();
-    const {width, height} = useWindowDimensions();
-    {/*const {logo, dropDownArrow} = getImages()*/}   
+    const {width, height} = useWindowDimensions(); 
 
     //Loggo size animation
     const Logo_Max_Height = 63;
@@ -53,7 +56,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
 
     const animatedMenuColor = animationValue.interpolate({
         inputRange: [0, scroll_distance],
-        outputRange: ["rgb(49,36,99)", "rgb(248,248,248)"],
+        outputRange: ["rgba(248,248,248,0)", "rgba(248,248,248,1.0)"], //dark blue = "rgba(49,36,99)"
         extrapolate: 'clamp'
     })
 
@@ -82,7 +85,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                 <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollContact : navigateHome + scrollContact}>
                     <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Contact</AnimatedText>
                 </Pressable>
-                
+                    
             </Animated.View>
         </Animated.View>
     )
@@ -119,7 +122,7 @@ function useStyles(){
     return StyleSheet.create({
         navContainer:{
             width: "100%",
-            justifyContent: 'center',
+            justifyContent: 'center'
         },
         menuItemContainer:{
             flexDirection: 'row',
