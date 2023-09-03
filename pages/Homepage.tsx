@@ -25,17 +25,25 @@ const HomePage = ({navigation}) => {
     //Animated header on scroll
     let scrollYOffset = useRef(new Animated.Value(0)).current;
 
+    const animatedTopMargin = scrollYOffset.interpolate({
+        inputRange: [0, 17.43],
+        outputRange: [-101, -83.57],
+        extrapolate: 'clamp'
+    })
+
     return(
         <View>
-            <NavBar isHome={true} 
-            animationValue = {scrollYOffset}
-            navigateHome={() => navigation.navigate('Home')} 
-            scrollHome={() => ref.scrollTo({x:0, y: 0, animated:true})} 
-            scrollAbout={() => scrollHandler(1)}
-            scrollContact={() => scrollHandler(3)}
-            scrollProjects={() => scrollHandler(2)}
-            projects={[['TestProject', () => navigation.navigate('TestProject')]]}/>
-               <View style={scrollViewStyles.container}>
+            <View style={{zIndex: 2}}>
+                <NavBar isHome={true} 
+                animationValue = {scrollYOffset}
+                navigateHome={() => navigation.navigate('Home')} 
+                scrollHome={() => ref.scrollTo({x:0, y: 0, animated:true})} 
+                scrollAbout={() => scrollHandler(1)}
+                scrollContact={() => scrollHandler(3)}
+                scrollProjects={() => scrollHandler(2)}
+                projects={[['TestProject', () => navigation.navigate('TestProject')]]}/>
+            </View>
+               <Animated.View style={[scrollViewStyles.container, {marginTop: animatedTopMargin}]}>
                     <ScrollView ref={ref => {setRef(ref as any);}} scrollEventThrottle={16} onScroll={Animated.event([{nativeEvent: { contentOffset: { y: scrollYOffset}}}], {useNativeDriver: false})}>
                         <View key={1} onLayout={event => {const layout = event.nativeEvent.layout; dataSourceCords[1] = layout.y}}>
                             <AboutMeSection/>
@@ -47,7 +55,7 @@ const HomePage = ({navigation}) => {
                             <ContactSection/>
                         </View>
                     </ScrollView>
-                </View>
+                </Animated.View>
         </View>
     )
 }
@@ -65,7 +73,7 @@ function useStyles(){
 
         },
         container:{
-            height: (width > 710) ? height - 101 : height - 62,
+            height: (width > 710) ? height /*- 101*/ : height /*- 62*/,
             width: width
         }
     })
