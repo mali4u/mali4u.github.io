@@ -1,8 +1,8 @@
-import {StyleSheet, Text, TouchableOpacity, View, Image, Dimensions, useWindowDimensions, Pressable, Animated} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, Image, Dimensions, useWindowDimensions, Pressable, Animated, FlatList} from 'react-native';
 import externalStyle from '../style/externalStyle';
 import * as Svg from 'react-native-svg'
 import LogoGreen from '../assets/LogoGreen';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import DropDownArrowSvg from '../assets/DropDownArrowSvg';
 import { LinearGradient } from 'expo-linear-gradient';
 import Gradient from 'react-native-css-gradient';
@@ -32,19 +32,19 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
         inputRange: [0, scroll_distance],
         outputRange: [Logo_Max_Height, Logo_Min_Height],
         extrapolate: 'clamp'
-    })
+    });
 
     const animatedLogoWidth = animationValue.interpolate({
         inputRange: [0, scroll_distance],
         outputRange: [Logo_Max_Width, Logo_Min_Width],
         extrapolate: 'clamp'
-    })
+    });
 
     const animatedMenuWidth = animationValue.interpolate({
         inputRange: [0, scroll_distance],
         outputRange: [Menu_Max_Maxwidth, Menu_Min_Maxwidth],
         extrapolate: 'clamp'
-    })
+    });
 
     const AnimatedText = Animated.createAnimatedComponent(Text);
 
@@ -52,42 +52,68 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
         inputRange: [0, scroll_distance],
         outputRange: ["rgb(248,248,248)", "rgb(47,49,66)"],
         extrapolate: 'clamp'
-    })
+    });
 
     const animatedMenuColor = animationValue.interpolate({
         inputRange: [0, scroll_distance],
         outputRange: ["rgba(248,248,248,0)", "rgba(248,248,248,1.0)"], //dark blue = "rgba(49,36,99)"
         extrapolate: 'clamp'
-    })
+    });
 
+    const animatedDropDownColor = animationValue.interpolate({
+        inputRange: [0, scroll_distance],
+        outputRange: ["rgb(49,36,99)", "rgb(248,248,248)"], //dark blue = "rgba(49,36,99)"
+        extrapolate: 'clamp'
+    });
+
+    //Dropdown
+    const[visible, setVisible] = useState(false);
+    const toggleDropdown = () =>{
+        setVisible(!visible);
+    };
+
+    const renderDropDown = () => {
+        if(visible){
+            return(
+                <View style={[navBarStyle.dropDownContainer, {backgroundColor:animatedMenuColor}]}>
+                    
+                </View>
+            )
+        }
+    }
 
     return(
-        <Animated.View style={[navBarStyle.navContainer, {backgroundColor:animatedMenuColor}]}>
-            <Animated.View style={[navBarStyle.menuItemContainer, {maxWidth: (width > 710) ? animatedMenuWidth : 420}]}>
-                <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollHome : navigateHome}>
-                    <Animated.View style={{height: (width > 710) ? animatedLogoHeight : 35.55, width: (width > 710) ? animatedLogoWidth : 36}} >
-                        <View>
-                            <LogoGreen animationValue={animationValue} myScrollDistance={scroll_distance}/>
+        <View>
+            <Animated.View style={[navBarStyle.navContainer, {backgroundColor:animatedMenuColor}]}>
+                <Animated.View style={[navBarStyle.menuItemContainer, {maxWidth: (width > 710) ? animatedMenuWidth : 420}]}>
+                    <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollHome : navigateHome}>
+                        <Animated.View style={{height: (width > 710) ? animatedLogoHeight : 35.55, width: (width > 710) ? animatedLogoWidth : 36}} >
+                            <View>
+                                <LogoGreen animationValue={animationValue} myScrollDistance={scroll_distance}/>
+                            </View>
+                        </Animated.View>
+                    </Pressable>
+                    <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollAbout : navigateHome + scrollAbout}>
+                        <AnimatedText style={[textStyle, {color: animatedTextColor}]}>About me</AnimatedText>
+                    </Pressable>
+                    <Pressable style={navBarStyle.menuItem} onPress={toggleDropdown}>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Projects</AnimatedText>
+                            <View style={navBarStyle.dropdownArrow}>
+                                <DropDownArrowSvg animationValue={animationValue} myScrollDistance={scroll_distance}/>
+                            </View>
                         </View>
-                    </Animated.View>
-                </Pressable>
-                <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollAbout : navigateHome + scrollAbout}>
-                    <AnimatedText style={[textStyle, {color: animatedTextColor}]}>About me</AnimatedText>
-                </Pressable>
-                <Pressable style={navBarStyle.menuItem} >
-                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Projects</AnimatedText>
-                        <View style={navBarStyle.dropdownArrow}>
-                            <DropDownArrowSvg animationValue={animationValue} myScrollDistance={scroll_distance}/>
-                        </View>
-                    </View>
-                </Pressable>
-                <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollContact : navigateHome + scrollContact}>
-                    <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Contact</AnimatedText>
-                </Pressable>
-                    
+                    </Pressable>
+                    <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollContact : navigateHome + scrollContact}>
+                        <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Contact</AnimatedText>
+                    </Pressable> 
+                </Animated.View>
             </Animated.View>
-        </Animated.View>
+            {(visible) ? 
+            <View style={[navBarStyle.dropDownContainer, {backgroundColor: 'blue'/*animatedMenuColor*/}]}>
+                    
+            </View>:null}
+        </View>
     )
 }
 
@@ -137,6 +163,13 @@ function useStyles(){
             width: (width > 710) ? 14 : 12,
             height: (width > 710) ? 9 : 7,
             marginLeft: 3
+        },
+        dropDownContainer:{
+            width: (width > 710) ? 270 : width,
+            flexDirection: 'column',
+            paddingHorizontal: (width > 710) ? 18 : 35,
+            height:100,
+            zIndex:2
         }
     });
 }
