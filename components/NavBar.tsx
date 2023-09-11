@@ -62,25 +62,36 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
 
     const animatedDropDownColor = animationValue.interpolate({
         inputRange: [0, scroll_distance],
-        outputRange: ["rgb(49,36,99)", "rgb(248,248,248)"], //dark blue = "rgba(49,36,99)"
+        outputRange: ["rgb(49,36,99)", "rgb(248,248,248)"], 
         extrapolate: 'clamp'
     });
 
     //Dropdown
+    const fadeAnim = useRef(new Animated.Value(0)).current;
+
     const[visible, setVisible] = useState(false);
     const toggleDropdown = () =>{
         setVisible(!visible);
     };
 
-    const renderDropDown = () => {
-        if(visible){
-            return(
-                <View style={[navBarStyle.dropDownContainer, {backgroundColor:animatedMenuColor}]}>
-                    
-                </View>
-            )
-        }
-    }
+    const fadeDropDown = () => {
+      if(visible){
+        Animated.timing(fadeAnim, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: true,
+          }).start();
+          toggleDropdown();
+      }else{
+        Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+        }).start();
+        toggleDropdown();
+      }  
+    };
+
 
     return(
         <View>
@@ -96,23 +107,36 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                     <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollAbout : navigateHome + scrollAbout}>
                         <AnimatedText style={[textStyle, {color: animatedTextColor}]}>About me</AnimatedText>
                     </Pressable>
-                    <Pressable style={navBarStyle.menuItem} onPress={toggleDropdown}>
-                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Projects</AnimatedText>
-                            <View style={navBarStyle.dropdownArrow}>
-                                <DropDownArrowSvg animationValue={animationValue} myScrollDistance={scroll_distance}/>
+                    <View>
+                        <Pressable style={navBarStyle.menuItem} onPress={fadeDropDown}>
+                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Projects</AnimatedText>
+                                <View style={navBarStyle.dropdownArrow}>
+                                    <DropDownArrowSvg animationValue={animationValue} myScrollDistance={scroll_distance}/>
+                                </View>
                             </View>
-                        </View>
-                    </Pressable>
+                        </Pressable>
+                        <Animated.View style={{opacity:fadeAnim, position: 'absolute'}}>
+                            <Pressable style={navBarStyle.menuItem} onPress={fadeDropDown}>
+                                <View style={[navBarStyle.shadow,{flexDirection: 'row', alignItems: 'center', backgroundColor: "rgb(248,248,248)", padding:14, paddingTop:-5, marginLeft:-13, borderRadius:7, width:120, height:85, marginTop:17}]}>
+                                    
+                                        <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Projects</AnimatedText>
+                                        <View style={[navBarStyle.dropdownArrow,{transform: [{ rotate: '180deg' }]}]}>
+                                            <DropDownArrowSvg animationValue={animationValue} myScrollDistance={scroll_distance}/>
+                                        </View>
+                                    
+                                </View>
+                            </Pressable>
+                            <View style={[navBarStyle.shadow,navBarStyle.dropDownContainer,{backgroundColor:"rgb(248,248,248)", borderRadius:7, marginLeft:-13, marginTop:18}]}>
+
+                            </View>
+                        </Animated.View>
+                    </View>
                     <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollContact : navigateHome + scrollContact}>
                         <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Contact</AnimatedText>
                     </Pressable> 
                 </Animated.View>
             </Animated.View>
-            {(visible) ? 
-            <View style={[navBarStyle.dropDownContainer, {backgroundColor: 'blue'/*animatedMenuColor*/}]}>
-                    
-            </View>:null}
         </View>
     )
 }
@@ -157,7 +181,8 @@ function useStyles(){
             justifyContent: 'space-between'
         },
         menuItem:{
-            justifyContent: 'center'
+            justifyContent: 'center',
+            height:46,
         },
         dropdownArrow:{
             width: (width > 710) ? 14 : 12,
@@ -170,6 +195,12 @@ function useStyles(){
             paddingHorizontal: (width > 710) ? 18 : 35,
             height:100,
             zIndex:2
+        },
+        shadow:{
+            shadowColor: '#171717',
+            shadowOffset: {width: -1, height: 4},
+            shadowOpacity: 0.2,
+            shadowRadius: 3
         }
     });
 }
