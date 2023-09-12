@@ -66,6 +66,12 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
         extrapolate: 'clamp'
     });
 
+    const animatedshadowOpacity = animationValue.interpolate({
+        inputRange: [0, scroll_distance],
+        outputRange: [0, 0.2], 
+        extrapolate: 'clamp'
+    });
+
     //Dropdown
     const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -95,7 +101,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
 
     return(
         <View>
-            <Animated.View style={[navBarStyle.navContainer, {backgroundColor:animatedMenuColor}]}>
+            <Animated.View style={[navBarStyle.navContainer, /*navBarStyle.shadow,*/{backgroundColor:animatedMenuColor} ]}>
                 <Animated.View style={[navBarStyle.menuItemContainer, {maxWidth: (width > 710) ? animatedMenuWidth : 420}]}>
                     <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollHome : navigateHome}>
                         <Animated.View style={{height: (width > 710) ? animatedLogoHeight : 35.55, width: (width > 710) ? animatedLogoWidth : 36}} >
@@ -118,18 +124,18 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                         </Pressable>
                         <Animated.View style={{opacity:fadeAnim, position: 'absolute'}}>
                             <Pressable style={navBarStyle.menuItem} onPress={fadeDropDown}>
-                                <View style={[navBarStyle.shadow,{flexDirection: 'row', alignItems: 'center', backgroundColor: "rgb(248,248,248)", padding:14, paddingTop:-5, marginLeft:-13, borderRadius:7, width:120, height:85, marginTop:17}]}>
+                                <Animated.View style={[navBarStyle.shadow,{flexDirection: 'row', alignItems: 'center', backgroundColor: animatedDropDownColor, padding:14, paddingTop:-5, marginLeft:-13, borderRadius:7, width:120, height:85, marginTop:17}]}>
                                     
                                         <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Projects</AnimatedText>
                                         <View style={[navBarStyle.dropdownArrow,{transform: [{ rotate: '180deg' }]}]}>
                                             <DropDownArrowSvg animationValue={animationValue} myScrollDistance={scroll_distance}/>
                                         </View>
                                     
-                                </View>
+                                </Animated.View>
                             </Pressable>
-                            <View style={[navBarStyle.shadow,navBarStyle.dropDownContainer,{backgroundColor:"rgb(248,248,248)", borderRadius:7, marginLeft:-13, marginTop:18}]}>
+                            <Animated.View style={[navBarStyle.shadow,navBarStyle.dropDownContainer,{backgroundColor:animatedDropDownColor, borderRadius:7, marginLeft:-13, marginTop:18}]}>
 
-                            </View>
+                            </Animated.View>
                         </Animated.View>
                     </View>
                     <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollContact : navigateHome + scrollContact}>
