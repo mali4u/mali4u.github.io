@@ -82,13 +82,13 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
         inputRange: [0, scroll_distance],
         outputRange: ['rgb(173,173,173)','rgb(23,23,23)'], 
         extrapolate: 'clamp'
-    });
+    });*/
 
     const animatedShadowOpacity = animationValue.interpolate({
         inputRange: [0, scroll_distance],
-        outputRange: [0,0.2], 
+        outputRange: [0,1.0], 
         extrapolate: 'clamp'
-    });*/
+    });
 
     //Dropdown
     const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -142,7 +142,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                         </Pressable>
                         <Animated.View style={{opacity:fadeAnim, position: 'absolute'}}>
                             <Pressable style={navBarStyle.menuItem} onPress={fadeDropDown}>
-                                <Animated.View style={[navBarStyle.shadow,{flexDirection: 'row', alignItems: 'center', backgroundColor: animatedDropDownColor, padding:14, paddingTop:-5, marginLeft:-13, borderRadius:7, width:120, height:85, marginTop:17}]}>
+                                <Animated.View style={[navBarStyle.shadowDropdown,{flexDirection: 'row', alignItems: 'center', backgroundColor: animatedDropDownColor, padding:14, paddingTop:-5, marginLeft:-13, borderRadius:7, width:120, height:85, marginTop:17}]}>
                                     
                                     <AnimatedText style={[textStyle, {color: animatedFocusedColor}]}>Projects</AnimatedText>
                                     <View style={[navBarStyle.dropdownArrow,{transform: [{ rotate: '180deg' }]}]}>
@@ -151,7 +151,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                                     
                                 </Animated.View>
                             </Pressable>
-                            <Animated.View style={[navBarStyle.shadow,navBarStyle.dropDownContainer,{backgroundColor:animatedDropDownColor, borderRadius:7, marginLeft:-13, marginTop:10}]}>
+                            <Animated.View style={[navBarStyle.shadowDropdown,navBarStyle.dropDownContainer,{backgroundColor:animatedDropDownColor, borderRadius:7, marginLeft:-13, marginTop:10}]}>
 
                             </Animated.View>
                         </Animated.View>
@@ -161,6 +161,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                     </Pressable> 
                 </Animated.View>
             </Animated.View>
+            <Animated.View style={[navBarStyle.navContainer, navBarStyle.shadowMenu, {opacity:animatedShadowOpacity, height: 5, marginTop:-5, zIndex:-1}]}/>
         </View>
     )
 }
@@ -220,7 +221,13 @@ function useStyles(){
             height:100,
             zIndex:2
         },
-        shadow:{
+        shadowDropdown:{
+            shadowColor: '#171717',
+            shadowOffset: {width: -1, height: 4},
+            shadowOpacity: 0.2,
+            shadowRadius: 3
+        },
+        shadowMenu:{
             shadowColor: '#171717',
             shadowOffset: {width: -1, height: 4},
             shadowOpacity: 0.2,
