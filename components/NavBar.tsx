@@ -8,6 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Gradient from 'react-native-css-gradient';
 import {interpolate} from 'flubber';
 import { Extrapolate, useAnimatedProps, useSharedValue } from 'react-native-reanimated';
+import { useHover, useFocus, useActive } from 'react-native-web-hooks';
 
 
 
@@ -72,18 +73,6 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
         extrapolate: 'clamp'
     });
 
-    /*const animatedShadowColor = animationValue.interpolate({
-        inputRange: [0, scroll_distance],
-        outputRange: ['rgba(23,23,23,0)','rgba(23,23,23,1.0)'], 
-        extrapolate: 'clamp'
-    });
-
-    const animatedDropDownShadowColor = animationValue.interpolate({
-        inputRange: [0, scroll_distance],
-        outputRange: ['rgb(173,173,173)','rgb(23,23,23)'], 
-        extrapolate: 'clamp'
-    });*/
-
     const animatedShadowOpacity = animationValue.interpolate({
         inputRange: [0, scroll_distance],
         outputRange: [0,1.0], 
@@ -112,6 +101,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
             duration: 500,
             useNativeDriver: true,
         }).start();
+        scrollProjects();
         toggleDropdown();
       }  
     };
@@ -132,8 +122,9 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                         <AnimatedText style={[textStyle, {color: animatedTextColor}]}>About me</AnimatedText>
                     </Pressable>
                     <View>
-                        <Pressable style={navBarStyle.menuItem} onPress={fadeDropDown}>
+                        <Pressable style={[navBarStyle.menuItem]} onPress={fadeDropDown}>
                             <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                
                                 <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Projects</AnimatedText>
                                 <View style={navBarStyle.dropdownArrow}>
                                     <DropDownArrowSvg version={1} animationValue={animationValue} myScrollDistance={scroll_distance}/>
@@ -141,7 +132,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                             </View>
                         </Pressable>
                         <Animated.View style={{opacity:fadeAnim, position: 'absolute'}}>
-                            <Pressable style={navBarStyle.menuItem} onPress={fadeDropDown}>
+                            <Pressable style={[navBarStyle.menuItem, {width:15}]} onPress={fadeDropDown}>
                                 <Animated.View style={[navBarStyle.shadowDropdown,{flexDirection: 'row', alignItems: 'center', backgroundColor: animatedDropDownColor, padding:14, paddingTop:-5, marginLeft:-13, borderRadius:7, width:120, height:85, marginTop:17}]}>
                                     
                                     <AnimatedText style={[textStyle, {color: animatedFocusedColor}]}>Projects</AnimatedText>
@@ -151,8 +142,13 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                                     
                                 </Animated.View>
                             </Pressable>
-                            <Animated.View style={[navBarStyle.shadowDropdown,navBarStyle.dropDownContainer,{backgroundColor:animatedDropDownColor, borderRadius:7, marginLeft:-13, marginTop:10}]}>
-
+                            <Animated.View style={[navBarStyle.shadowDropdown,navBarStyle.dropDownContainer,{backgroundColor:animatedDropDownColor}]}>
+                                <FlatList data={projects} renderItem={({item}) => 
+                                    <View>
+                                        <Pressable onPress={item.function}>
+                                            <AnimatedText style={[textStyle, {color:animatedTextColor}]}>{item.name}</AnimatedText>
+                                        </Pressable>
+                                    </View>}/>
                             </Animated.View>
                         </Animated.View>
                     </View>
@@ -219,7 +215,10 @@ function useStyles(){
             flexDirection: 'column',
             paddingHorizontal: (width > 710) ? 18 : 35,
             height:100,
-            zIndex:2
+            zIndex:2,
+            borderRadius:7, 
+            marginLeft:-13, 
+            marginTop:10
         },
         shadowDropdown:{
             shadowColor: '#171717',

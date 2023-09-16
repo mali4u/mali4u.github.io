@@ -25,11 +25,7 @@ const HomePage = ({navigation}) => {
     //Animated header on scroll
     let scrollYOffset = useRef(new Animated.Value(0)).current;
 
-    const animatedTopMargin = scrollYOffset.interpolate({
-        inputRange: [0, 17.43],
-        outputRange: [-101, -83.57],
-        extrapolate: 'clamp'
-    })
+    var projectArray = [{name: 'TestProject', function: () => navigation.navigate('TestProject', {scrollAbout:scrollHandler(1), scrollProjects: scrollHandler(2), scrollContact:scrollHandler(3)})}];
 
     return(
         <View>
@@ -41,9 +37,9 @@ const HomePage = ({navigation}) => {
                 scrollAbout={() => scrollHandler(1)}
                 scrollContact={() => scrollHandler(3)}
                 scrollProjects={() => scrollHandler(2)}
-                projects={[['TestProject', () => navigation.navigate('TestProject')]]}/>
+                projects={projectArray}/>
             </View>
-               <Animated.View style={[scrollViewStyles.container /*, {marginTop: animatedTopMargin}*/]}>
+               <Animated.View style={[scrollViewStyles.container]}>
                     <ScrollView showsVerticalScrollIndicator={false} ref={ref => {setRef(ref as any);}} scrollEventThrottle={16} onScroll={Animated.event([{nativeEvent: { contentOffset: { y: scrollYOffset}}}], {useNativeDriver: false})}>
                         <View key={1} onLayout={event => {const layout = event.nativeEvent.layout; dataSourceCords[1] = layout.y}}>
                             <AboutMeSection/>
