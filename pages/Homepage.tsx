@@ -9,8 +9,19 @@ import { _ScrollView } from 'react-native';
 
 
 
-const HomePage = ({navigation}) => {   
+const HomePage = ({navigation, startItem}) => {   
     const scrollViewStyles = useStyles()
+
+    useEffect(() => {
+        const inputScroll = navigation.addListener('focus', () => {
+          (startItem == 'About') ? scrollHandler(1) : (startItem == 'Contact') ? scrollHandler(3):null;
+          // The screen is focused
+          // Call any action
+        });
+    
+        // Return the function to unsubscribe from the event so it gets removed on unmount
+        return inputScroll;
+      }, [navigation]);
 
     //Save positions of views in scrollview
     const [dataSourceCords, setDataSourceCords] = useState([] as number[]);

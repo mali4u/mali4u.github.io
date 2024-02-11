@@ -15,6 +15,7 @@ import { useHover, useFocus, useActive } from 'react-native-web-hooks';
 const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout, scrollContact, scrollProjects, projects}) => {
     const navBarStyle = useStyles();
     const textStyle = useTextStyles();
+    const dropDowntextStyle = useTextStylesDropDown();
     const {width, height} = useWindowDimensions(); 
 
     //Loggo size animation
@@ -111,7 +112,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
         <View>
             <Animated.View style={[navBarStyle.navContainer, {backgroundColor:animatedMenuColor} ]}>
                 <Animated.View style={[navBarStyle.menuItemContainer, {maxWidth: (width > 710) ? animatedMenuWidth : 420}]}>
-                    <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollHome : navigateHome}>
+                    <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollHome : navigateHome }>
                         <Animated.View style={{height: (width > 710) ? animatedLogoHeight : 35.55, width: (width > 710) ? animatedLogoWidth : 36}} >
                             <View>
                                 <LogoGreen animationValue={animationValue} myScrollDistance={scroll_distance}/>
@@ -146,9 +147,10 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                                 <FlatList data={projects} renderItem={({item}) => 
                                     <View>
                                         <Pressable onPress={item.function}>
-                                            <AnimatedText style={[textStyle, {color:animatedTextColor}]}>{item.name}</AnimatedText>
+                                            <AnimatedText style={[dropDowntextStyle, {color:animatedTextColor}]}>{item.name}</AnimatedText>
                                         </Pressable>
-                                    </View>}/>
+                                    </View>
+                                }/>
                             </Animated.View>
                         </Animated.View>
                     </View>
@@ -183,6 +185,13 @@ function useTextStyles(){
     const {width, height} = useWindowDimensions();
     return(
         (width > 710) ? externalStyle.H4 : externalStyle.H6
+    )
+}
+
+function useTextStylesDropDown(){
+    const {width, height} = useWindowDimensions();
+    return(
+        (width > 710) ? externalStyle.H5 : externalStyle.H6
     )
 }
 
