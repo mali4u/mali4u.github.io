@@ -129,14 +129,14 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
         <View>
             <Animated.View style={[navBarStyle.navContainer, {backgroundColor:animatedMenuColor} ]}>
                 <Animated.View style={[navBarStyle.menuItemContainer, {maxWidth: (width > 710) ? animatedMenuWidth : 420}]}>
-                    <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollHome : navigateHome }>
+                    <Pressable style={navBarStyle.menuItem} onPressIn={(isHome == true) ? scrollHome : navigateHome } onPressOut={(visible) ? fadeOutDropDown:null}>
                         <Animated.View style={{height: (width > 710) ? animatedLogoHeight : 35.55, width: (width > 710) ? animatedLogoWidth : 36}} >
                             <View>
                                 <LogoGreen animationValue={animationValue} myScrollDistance={scroll_distance}/>
                             </View>
                         </Animated.View>
                     </Pressable>
-                    <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollAbout : navigateHome + scrollAbout}>
+                    <Pressable style={navBarStyle.menuItem} onPressIn={(isHome == true) ? scrollAbout : navigateHome + scrollAbout} onPressOut={(visible) ? fadeOutDropDown:null}>
                         <AnimatedText style={[textStyle, {color: animatedTextColor}]}>About me</AnimatedText>
                     </Pressable>
                     <View>
@@ -163,7 +163,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                                     </Animated.View>
                                 </Pressable>
                                 <Animated.View style={[navBarStyle.shadowDropdown,navBarStyle.dropDownContainer,{backgroundColor:animatedDropDownColor}]}>
-                                    <FlatList data={projects} extraData={fadeDropDown} renderItem={({item}) => 
+                                    <FlatList data={projects} renderItem={({item}) => 
                                         
                                         <View>
                                             <Pressable onPressIn={item.function} onPressOut={fadeOutDropDown}>
@@ -175,7 +175,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                             
                         </Animated.View>
                     </View>
-                    <Pressable style={navBarStyle.menuItem} onPress={(isHome == true) ? scrollContact : navigateHome + scrollContact}>
+                    <Pressable style={navBarStyle.menuItem} onPressIn={(isHome == true) ? scrollContact : navigateHome + scrollContact} onPressOut={(visible) ? fadeOutDropDown:null}>
                         <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Contact</AnimatedText>
                     </Pressable> 
                 </Animated.View>
