@@ -83,7 +83,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
 
     const[visible, setVisible] = useState(false);
    
-   /* const toggleDropdown = () =>{
+    const toggleDropdown = () =>{
         setVisible(!visible);
     };
 
@@ -101,9 +101,10 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
             duration: 500,
             useNativeDriver: true,
         }).start();
+        scrollProjects;
         toggleDropdown();
       }  
-    };*/
+    };
 
     const fadeOutDropDown = () => {
         Animated.timing(fadeAnim, {
@@ -111,6 +112,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
             duration: 500,
             useNativeDriver: true,
           }).start();
+          toggleDropdown();
     };
 
     const fadeInDropDown = () => {
@@ -119,6 +121,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
             duration: 500,
             useNativeDriver: true,
           }).start();
+          toggleDropdown();
     };
 
 
@@ -137,7 +140,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                         <AnimatedText style={[textStyle, {color: animatedTextColor}]}>About me</AnimatedText>
                     </Pressable>
                     <View>
-                        <Pressable style={[navBarStyle.menuItem]} onPress={scrollProjects}>
+                        <Pressable style={[navBarStyle.menuItem]} onPress={fadeDropDown}>
                             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                 
                                 <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Projects</AnimatedText>
@@ -149,7 +152,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                         </Pressable>
                         <Animated.View style={{opacity:fadeAnim, position: 'absolute'}} onPointerLeave={fadeOutDropDown}>
                         
-                                <Pressable style={[navBarStyle.menuItem, {width:15}]} onPress={scrollProjects} onHoverIn={fadeInDropDown}>
+                                <Pressable style={[navBarStyle.menuItem, {width:15}]} onPress={fadeDropDown} onHoverIn={fadeInDropDown}>
                                     <Animated.View style={[navBarStyle.shadowDropdown,{flexDirection: 'row', alignItems: 'center', backgroundColor: animatedDropDownColor, padding:14, paddingTop:-5, marginLeft:-13, borderRadius:7, width:120, height:85, marginTop:17}]}>
                                         
                                         <AnimatedText style={[textStyle, {color: animatedFocusedColor}]}>Projects</AnimatedText>
@@ -160,9 +163,10 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                                     </Animated.View>
                                 </Pressable>
                                 <Animated.View style={[navBarStyle.shadowDropdown,navBarStyle.dropDownContainer,{backgroundColor:animatedDropDownColor}]}>
-                                    <FlatList data={projects} renderItem={({item}) => 
+                                    <FlatList data={projects} extraData={fadeDropDown} renderItem={({item}) => 
+                                        
                                         <View>
-                                            <Pressable onPress={item.function}>
+                                            <Pressable onPressIn={item.function} onPressOut={fadeOutDropDown}>
                                                 <AnimatedText style={[dropDowntextStyle, {color:animatedTextColor}]}>{item.name}</AnimatedText>
                                             </Pressable>
                                         </View>
