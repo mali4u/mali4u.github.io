@@ -6,7 +6,8 @@ import { _ScrollView } from 'react-native';
 
 const TestProjectPage = ({navigation, scrollAbout, scrollProjects, scrollContact}) => {
     const scrollViewStyles = useStyles()
-    
+
+
     //Save positions of views in scrollview
     const [dataSourceCords, setDataSourceCords] = useState([] as number[]);
     const [scrollToIndex, setScrollToIndex] = useState(0);

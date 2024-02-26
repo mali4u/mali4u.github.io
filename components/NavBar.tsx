@@ -129,14 +129,14 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
         <View>
             <Animated.View style={[navBarStyle.navContainer, {backgroundColor:animatedMenuColor} ]}>
                 <Animated.View style={[navBarStyle.menuItemContainer, {maxWidth: (width > 710) ? animatedMenuWidth : 420}]}>
-                    <Pressable style={navBarStyle.menuItem} onPressIn={(isHome == true) ? scrollHome : navigateHome } onPressOut={(visible) ? fadeOutDropDown:null}>
+                    <Pressable style={navBarStyle.menuItem} onPressIn={(isHome == true) ? scrollHome : navigateHome} onPressOut={(visible) ? fadeOutDropDown:null}>
                         <Animated.View style={{height: (width > 710) ? animatedLogoHeight : 35.55, width: (width > 710) ? animatedLogoWidth : 36}} >
                             <View>
                                 <LogoGreen animationValue={animationValue} myScrollDistance={scroll_distance}/>
                             </View>
                         </Animated.View>
                     </Pressable>
-                    <Pressable style={navBarStyle.menuItem} onPressIn={(isHome == true) ? scrollAbout : navigateHome + scrollAbout} onPressOut={(visible) ? fadeOutDropDown:null}>
+                    <Pressable style={navBarStyle.menuItem} onPressIn={(isHome == true) ? scrollAbout : navigateHome} onPressOut={(visible) ? fadeOutDropDown:null}>
                         <AnimatedText style={[textStyle, {color: animatedTextColor}]}>About me</AnimatedText>
                     </Pressable>
                     <View>
@@ -153,7 +153,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                         <Animated.View style={{opacity:fadeAnim, position: 'absolute'}} onPointerLeave={fadeOutDropDown}>
                         
                                 <Pressable style={[navBarStyle.menuItem, {width:15}]} onPress={fadeDropDown} onHoverIn={fadeInDropDown}>
-                                    <Animated.View style={[navBarStyle.shadowDropdown,{flexDirection: 'row', alignItems: 'center', backgroundColor: animatedDropDownColor, padding:14, paddingTop:-5, marginLeft:-13, borderRadius:7, width:120, height:85, marginTop:17}]}>
+                                    <Animated.View style={[navBarStyle.shadowDropdown,navBarStyle.menuItemDropDown,{backgroundColor: animatedDropDownColor}]}>
                                         
                                         <AnimatedText style={[textStyle, {color: animatedFocusedColor}]}>Projects</AnimatedText>
                                         <View style={[navBarStyle.dropdownArrow,{transform: [{ rotate: '180deg' }]}]}>
@@ -167,7 +167,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                                         
                                         <View>
                                             <Pressable onPressIn={item.function} onPressOut={fadeOutDropDown}>
-                                                <AnimatedText style={[dropDowntextStyle, {color:animatedTextColor}]}>{item.name}</AnimatedText>
+                                                <AnimatedText style={[dropDowntextStyle,navBarStyle.dropDownItem, {color:animatedTextColor}]}>{item.name}</AnimatedText>
                                             </Pressable>
                                         </View>
                                     }/>
@@ -175,7 +175,7 @@ const NavBar = ({isHome, animationValue, navigateHome,  scrollHome, scrollAbout,
                             
                         </Animated.View>
                     </View>
-                    <Pressable style={navBarStyle.menuItem} onPressIn={(isHome == true) ? scrollContact : navigateHome + scrollContact} onPressOut={(visible) ? fadeOutDropDown:null}>
+                    <Pressable style={navBarStyle.menuItem} onPressIn={(isHome == true) ? scrollContact : scrollContact /*()=>{navigateHome + scrollContact()}*/} onPressOut={(visible) ? fadeOutDropDown:null}>
                         <AnimatedText style={[textStyle, {color: animatedTextColor}]}>Contact</AnimatedText>
                     </Pressable> 
                 </Animated.View>
@@ -241,26 +241,40 @@ function useStyles(){
             marginLeft: 3
         },
         dropDownContainer:{
-            width: (width > 710) ? 270 : width,
+            width: (width > 710) ? 270 : width/2 + 5,
             flexDirection: 'column',
-            paddingHorizontal: (width > 710) ? 18 : 35,
+            paddingHorizontal: (width > 710) ? 18 : 14,
             height:100,
             zIndex:2,
             borderRadius:7, 
-            marginLeft:-13, 
+            marginLeft:(width > 710) ? -13 : -13, 
             marginTop:10
         },
         shadowDropdown:{
             shadowColor: '#171717',
             shadowOffset: {width: -1, height: 4},
-            shadowOpacity: 0.2,
+            shadowOpacity: (width > 710) ? 0.2: 0,
             shadowRadius: 3
+        },
+        menuItemDropDown:{
+            flexDirection: 'row', 
+            alignItems: 'center', 
+            padding:14, 
+            paddingTop:-5, 
+            marginLeft:-13, 
+            borderRadius:7, 
+            width:(width > 710) ? 120: 100, 
+            height:85, 
+            marginTop:0            //15 ser rätt ut på mobil, 0 på datorn...
         },
         shadowMenu:{
             shadowColor: '#171717',
             shadowOffset: {width: -1, height: 4},
-            shadowOpacity: 0.2,
+            shadowOpacity: (width > 710) ? 0.2 : 0,
             shadowRadius: 3
+        },
+        dropDownItem:{
+            marginTop: 5
         }
     });
 }

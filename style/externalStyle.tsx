@@ -45,7 +45,7 @@ const externalStyle = StyleSheet.create({
         fontFamily: 'Nunito_600SemiBold'
     },
     H6:{
-        fontSize:13,
+        fontSize:16,
         fontFamily: 'Nunito_600SemiBold'
     },
     P:{

@@ -6,6 +6,7 @@ import AboutMeSection from '../components/AboutMeSection';
 import ProjectSection from '../components/ProjectSection';
 import ContactSection from '../components/ContactSection';
 import { _ScrollView } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 
 
@@ -14,14 +15,16 @@ const HomePage = ({navigation, startItem}) => {
 
     useEffect(() => {
         const inputScroll = navigation.addListener('focus', () => {
-          (startItem == 'About') ? scrollHandler(1) : (startItem == 'Contact') ? scrollHandler(3):null;
-          // The screen is focused
-          // Call any action
+          
+          (startItem == 'About') ? scrollHandler(1) : null;
+          (startItem == 'Contact') ? scrollHandler(3) : null;
+          console.log(startItem);
         });
     
         // Return the function to unsubscribe from the event so it gets removed on unmount
         return inputScroll;
-      }, [navigation]);
+    }, [navigation]);
+
 
     //Save positions of views in scrollview
     const [dataSourceCords, setDataSourceCords] = useState([] as number[]);
@@ -32,6 +35,10 @@ const HomePage = ({navigation, startItem}) => {
     const scrollHandler = (key: number) => {
         if(dataSourceCords.length > scrollToIndex) {ref?.scrollTo({x:0, y: dataSourceCords[key], animated: true})}
     }
+
+
+
+    
 
     //Animated header on scroll
     let scrollYOffset = useRef(new Animated.Value(0)).current;
@@ -52,7 +59,7 @@ const HomePage = ({navigation, startItem}) => {
             </View>
                <Animated.View style={[scrollViewStyles.container]}>
                     <ScrollView showsVerticalScrollIndicator={false} ref={ref => {setRef(ref as any);}} scrollEventThrottle={16} onScroll={Animated.event([{nativeEvent: { contentOffset: { y: scrollYOffset}}}], {useNativeDriver: false})}>
-                        <View key={1} onLayout={event => {const layout = event.nativeEvent.layout; dataSourceCords[1] = layout.y}}>
+                        <View key={1} style={scrollViewStyles.itemStyle} onLayout={event => {const layout = event.nativeEvent.layout; dataSourceCords[1] = layout.y}}>
                             <AboutMeSection/>
                         </View>
                         <View key={2} onLayout={event => {const layout = event.nativeEvent.layout; dataSourceCords[2] = layout.y}}>
@@ -74,7 +81,9 @@ function useStyles(){
 
     return StyleSheet.create({
         itemStyle: {
-
+            width: "100%",
+            justifyContent: 'center',
+            alignItems: 'center'
         },
         itemSeparatorStyle:{
 
@@ -83,7 +92,8 @@ function useStyles(){
             height: height,
             width: width,
             backgroundColor: "rgb(248,248,248)",
-            position: "absolute"
+            position: "absolute",
+            justifyContent: 'center'
         }
     })
 }
