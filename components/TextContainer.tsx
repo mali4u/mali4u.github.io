@@ -9,14 +9,13 @@ const TextContainer = ({title, text, menu}) => {
     const scrollViewRef = useRef<ScrollView>();
 
     return(
-        <View style={{justifyContent:'center', alignItems:'center', flex: 1, flexDirection: 'row'}}>
+        <View style={containerStyle.container}>
                 
-                <View>
+                <View style={containerStyle.aboutMeImage}>
                     {(title == 'About me') ? aboutImage():null}
-                    
                 </View>
                 
-                <View style={containerStyle.container}>
+                <View style={containerStyle.textContainer}>
                     <Text style={useTextStylesTitle()}>{title}</Text>
                     {(menu == null) ? null : createTextContainerMenu(menu)}
                     <ScrollView ref={scrollViewRef}>
@@ -74,10 +73,19 @@ function useStyles(){
 
     return StyleSheet.create({
         container:{
+            justifyContent:'center', 
+            alignItems:'center', 
+            flex: 1, 
+            flexDirection: (width>710)?'row':'column-reverse'
+        },
+        aboutMeImage:{
+            marginLeft: (width>710) ? 0 : -75
+        },
+        textContainer:{
             maxWidth: 450,
             marginHorizontal: 33,
             marginTop: 100,
-            marginLeft:132
+            marginLeft:(width>710) ? 132 : 33
         },
         menu:{
             flexDirection: 'row',
