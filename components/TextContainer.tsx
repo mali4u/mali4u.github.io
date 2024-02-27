@@ -14,7 +14,7 @@ const TextContainer = ({title, text, menu}) => {
                 <View style={containerStyle.aboutMeImage}>
                     {(title == 'About me') ? aboutImage():null}
                 </View>
-                
+                <View style={{maxWidth:100, flex:1, height:100}}/>
                 <View style={containerStyle.textContainer}>
                     <Text style={useTextStylesTitle()}>{title}</Text>
                     {(menu == null) ? null : createTextContainerMenu(menu)}
@@ -47,7 +47,7 @@ function createTextContainerMenu(menu){
             {menu.map((item, key) => ( 
                 <Pressable key={key} style={containerStyle.menuItem}>
                     <Text style={[useTextStylesMenu(), externalStyle.grey]}>{'\u2022'}</Text>
-                    <Text style={[useTextStylesMenu(), containerStyle.menuItemText, externalStyle.grey]}>{ item }</Text>
+                    <Text style={[useTextStylesMenu(), containerStyle.menuItemText, externalStyle.grey]}>{item }</Text>
                 </Pressable>
             ))}
         </View>
@@ -76,16 +76,15 @@ function useStyles(){
             justifyContent:'center', 
             alignItems:'center', 
             flex: 1, 
-            flexDirection: (width>710)?'row':'column-reverse'
+            flexDirection: (width>882)?'row':'column-reverse'
         },
         aboutMeImage:{
-            marginLeft: (width>710) ? 0 : -75
+            marginLeft: (width>882) ? 0 : -75,
         },
         textContainer:{
             maxWidth: 450,
             marginHorizontal: 33,
             marginTop: 100,
-            marginLeft:(width>710) ? 132 : 33
         },
         menu:{
             flexDirection: 'row',
@@ -96,7 +95,7 @@ function useStyles(){
         menuItem:{
             flexDirection: 'row',
             justifyContent: 'space-between',
-            maxWidth: (width > 710) ? 128 : 97
+            maxWidth: (width > 882) ? 128 : 97
             
         },
         menuItemText:{
